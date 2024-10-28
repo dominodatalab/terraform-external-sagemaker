@@ -25,16 +25,19 @@ variable "repository" {
   type        = string
   description = "ECR repository name to use for sagemaker deployment images (in the target AWS account).  Defaults to the value specified by `resource_identifier`."
   nullable    = true
+  default     = null
 }
 
 variable "bucket" {
   type        = string
   description = "S3 bucket to use for sagemaker deployment model artifacts (in the target AWS account).  Defaults to the value specified by `resource_identifier` plus the suffix `-{aws_account_id}.`"
   nullable    = true
+  default     = null
 }
 
 variable "role_name" {
   type        = string
   description = "IAM role name to use for creating sagemaker deployment resources (in the target AWS account).  Defaults to the value specified by `resource_identifier`."
   nullable    = true
+  default     = null
 }

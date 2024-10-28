@@ -34,12 +34,12 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_bucket"></a> [bucket](#input\_bucket) | S3 bucket to use for sagemaker deployment model artifacts (in the target AWS account).  Defaults to the value specified by `resource_identifier` plus the suffix `-{aws_account_id}.` | `string` | n/a | yes |
+| <a name="input_bucket"></a> [bucket](#input\_bucket) | S3 bucket to use for sagemaker deployment model artifacts (in the target AWS account).  Defaults to the value specified by `resource_identifier` plus the suffix `-{aws_account_id}.` | `string` | `null` | no |
 | <a name="input_domino_external_deployments_role_arn"></a> [domino\_external\_deployments\_role\_arn](#input\_domino\_external\_deployments\_role\_arn) | ARN for the Domino external deployments IAM role (in the domino AWS account) | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | AWS region in which to create the sagemaker resources | `string` | n/a | yes |
-| <a name="input_repository"></a> [repository](#input\_repository) | ECR repository name to use for sagemaker deployment images (in the target AWS account).  Defaults to the value specified by `resource_identifier`. | `string` | n/a | yes |
+| <a name="input_repository"></a> [repository](#input\_repository) | ECR repository name to use for sagemaker deployment images (in the target AWS account).  Defaults to the value specified by `resource_identifier`. | `string` | `null` | no |
 | <a name="input_resource_identifier"></a> [resource\_identifier](#input\_resource\_identifier) | identifier for domino-created resources in the AWS account | `string` | `"domino-sagemaker"` | no |
-| <a name="input_role_name"></a> [role\_name](#input\_role\_name) | IAM role name to use for creating sagemaker deployment resources (in the target AWS account).  Defaults to the value specified by `resource_identifier`. | `string` | n/a | yes |
+| <a name="input_role_name"></a> [role\_name](#input\_role\_name) | IAM role name to use for creating sagemaker deployment resources (in the target AWS account).  Defaults to the value specified by `resource_identifier`. | `string` | `null` | no |
 
 ## Outputs
 
