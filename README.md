@@ -1,5 +1,75 @@
 # terraform-external-sagemaker
 
+## Prerequisites
+Must be running Domino 6.0.0 (or newer) on AWS EKS
+
+## Testing locally
+1. Configure the AWS CLI with valid admin creds for an AWS account to use in testing
+2. `terraform init`
+3. `terraform test -verbose`
+4. Verify the tests succeeded or failed.
+
+## Applying remotely
+1. Configure the AWS CLI with valid admin creds for the target AWS account
+2. `terraform init`
+3. `terraform apply`
+   1. Enter the value for `domino_external_deployments_role_arn` when prompted.  Use the ARN of the external deployments
+      IAM role for the Domino platform.
+      ```
+      var.domino_external_deployments_role_arn
+      ARN for the Domino external deployments IAM role (in the domino AWS account)
+
+      Enter a value: arn:aws:iam::123456789012:role/domino-external-deployments-operator
+      ```
+   2. Enter the value for `region` when prompted.  Use the region where you want sagemaker resources to be created in 
+      the target account (NOT the region of the Domino platform).
+      ```
+      var.region
+      AWS region in which to create the sagemaker resources
+
+      Enter a value: us-west-2
+      ```
+   3. If successful, you'll see output like this:
+      ```
+      Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+
+      Outputs:
+
+      sagemaker = {
+      "account_id" = "521624712688"
+      "bucket" = "domino-sagemaker-521624712688"
+      "region" = "us-west-2"
+      "repository" = "domino-sagemaker"
+      "role_arn" = "arn:aws:iam::521624712688:role/domino-sagemaker"
+      }
+      ```
+
+## Destroying remotely
+1. Configure the AWS CLI with valid admin creds for the target AWS account
+2. `terraform init`
+3. `terraform destroy`
+    1. Enter the value for `domino_external_deployments_role_arn` when prompted.  Use the ARN of the external deployments
+       IAM role for the Domino platform.
+       ```
+       var.domino_external_deployments_role_arn
+       ARN for the Domino external deployments IAM role (in the domino AWS account)
+ 
+       Enter a value: arn:aws:iam::123456789012:role/domino-external-deployments-operator
+       ```
+    2. Enter the value for `region` when prompted.  Use the region where you want sagemaker resources to be created in
+       the target account (NOT the region of the Domino platform).
+       ```
+       var.region
+       AWS region in which to create the sagemaker resources
+ 
+       Enter a value: us-west-2
+       ```
+    3. If successful, you'll see output like this:
+       ```
+       Destroy complete! Resources: 3 destroyed.
+       ```
+
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

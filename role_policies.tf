@@ -41,6 +41,15 @@ data "aws_iam_policy_document" "role_permissions_policy" {
     ]
   }
   statement {
+    sid    = "EcrGlobalSagemakerEnvironments"
+    effect = "Allow"
+    actions = [
+      "ecr:GetAuthorizationToken",
+      "ecr:DescribeRegistry"
+    ]
+    resources = ["*"]
+  }
+  statement {
     sid       = "MetricsForSagemaker"
     effect    = "Allow"
     actions   = ["cloudwatch:PutMetricData"]
