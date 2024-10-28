@@ -1,5 +1,7 @@
 # terraform-external-sagemaker
 
+This is a terraform module for setting up an external AWS account as a sagemaker deployment target in Domino.
+
 ## Prerequisites
 Must be running Domino 6.0.0 (or newer) on AWS EKS
 
