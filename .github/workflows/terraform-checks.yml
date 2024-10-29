@@ -110,7 +110,7 @@ jobs:
         uses: pre-commit/action@v3.0.1
         with:
           extra_args: check_aws_partition --all-files
-  test-examples:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Test
