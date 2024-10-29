@@ -39,7 +39,6 @@ commands:
   run_tf_test:
     description: "Sets Terraform variables"
     steps:
-      - install_tf
       - set_aws_creds
       - run:
           name: Terraform test
