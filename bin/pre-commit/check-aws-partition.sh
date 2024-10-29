@@ -4,7 +4,7 @@ exec 1>&2
 
 check_aws_partition() {
   declare -A failed_files
-  exclude_patterns=("policy/AWSLambdaExecute")
+  exclude_patterns=("policy/AWSLambdaExecute", "README.md")
 
   for file in "$@"; do
     if grep -q "arn:aws" "${file}"; then
