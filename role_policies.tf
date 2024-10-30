@@ -8,15 +8,31 @@ data "aws_iam_policy_document" "role_permissions_policy" {
     ]
   }
   statement {
-    sid    = "IamAllowPassRole"
+    sid    = "IamAllowGetRole"
     effect = "Allow"
     actions = [
       "iam:GetRole",
+    ]
+    resources = [
+      "arn:${data.aws_partition.current.partition}:iam::${local.account_id}:role/${local.role_name}"
+    ]
+  }
+  statement {
+    sid    = "IamAllowGetRole"
+    effect = "Allow"
+    actions = [
       "iam:PassRole",
     ]
     resources = [
       "arn:${data.aws_partition.current.partition}:iam::${local.account_id}:role/${local.role_name}"
     ]
+    condition {
+      test     = "StringEquals"
+      variable = "iam:PassedToService"
+      values = [
+        "sagemaker.amazonaws.com"
+      ]
+    }
   }
   statement {
     sid    = "EcrRegistrySpecificSagemakerEnvironments"
