@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "role_permissions_policy" {
     ]
   }
   statement {
-    sid    = "IamAllowGetRole"
+    sid    = "IamAllowPassRole"
     effect = "Allow"
     actions = [
       "iam:PassRole",
