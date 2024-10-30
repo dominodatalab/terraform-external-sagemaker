@@ -5,11 +5,6 @@
 *.tfstate
 *.tfstate.*
 
-*infra.outputs*
-*cluster.outputs*
-*nodes.outputs*
-**migrated.txt
-**/deploy-test/*
 **terraform.plan
 
 **.terraform.lock.hcl*
@@ -36,20 +31,9 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
-aws-auth.yaml
-domino.pem
-plan-test.pem*
-domino.pem.pub
-k8s-functions.sh
-k8s-pre-setup.sh
-kubeconfig
-domino.yml
 terraform_tflint.txt
 terraform_tfsec.txt
-eniconfig.yaml
-kubeconfig-proxy
 terraform.tfvars
-k8s-proxy-tunnel.sh
 
 # local files
 .DS_Store
