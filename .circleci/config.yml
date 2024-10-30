@@ -31,7 +31,7 @@ commands:
   set_aws_creds:
     description: "Sets short-lived creds"
     steps:
-      - aws-cli/setup:
+      - aws-cli/role_arn_setup:
           role-arn: "${AWS_IAM_ROLE}"
           session-duration: "900"
 
