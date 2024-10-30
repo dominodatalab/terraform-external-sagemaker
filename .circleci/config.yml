@@ -41,6 +41,9 @@ commands:
     steps:
       - set_aws_creds
       - run:
+          name: Terraform init
+          command: terraform init
+      - run:
           name: Terraform test
           command: terraform test -verbose
 
