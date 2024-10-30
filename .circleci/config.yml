@@ -32,8 +32,9 @@ commands:
     description: "Sets short-lived creds"
     steps:
       - aws-cli/role_arn_setup:
-          role-arn: "${AWS_IAM_ROLE}"
-          session-duration: "900"
+          role_arn: "${AWS_IAM_ROLE}"
+          role_session_name: "${CIRCLE_JOB}"
+          session_duration: "900"
 
   run_tf_test:
     description: "Sets Terraform variables"
