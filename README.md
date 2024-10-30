@@ -72,7 +72,7 @@ Must be running Domino 6.0.0 (or newer) on AWS EKS
        ```
 
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -118,4 +118,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_sagemaker"></a> [sagemaker](#output\_sagemaker) | Domino sagemaker deployments info |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

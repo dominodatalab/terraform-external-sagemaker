@@ -1,6 +1,6 @@
 # setup
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -43,4 +43,4 @@ No modules.
 | <a name="output_aws_partition"></a> [aws\_partition](#output\_aws\_partition) | test aws partition |
 | <a name="output_domino_external_deployments_role_arn"></a> [domino\_external\_deployments\_role\_arn](#output\_domino\_external\_deployments\_role\_arn) | test domino external deployments role ARN |
 | <a name="output_resource_identifier"></a> [resource\_identifier](#output\_resource\_identifier) | test resource identifier |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
