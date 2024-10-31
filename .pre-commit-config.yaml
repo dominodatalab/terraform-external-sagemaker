@@ -1,0 +1,78 @@
+## NOTE: Changes(rename/add/delete) to pre-commit ids need to be replicated in .github/workflows/terraform-checks.yml(GHA).
+default_stages: [commit]
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: no-commit-to-branch
+      - id: check-case-conflict
+  - repo: https://github.com/dominodatalab/pre-commit-circleci
+    rev: v0.0.3
+    hooks:
+      - id: circleci-validate
+        args: [--org-slug, github/cerebrotech]
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.29.4
+    hooks:
+      - id: check-github-workflows
+      - id: check-dependabot
+      - id: check-github-actions
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.96.1
+    hooks:
+      - id: terraform_validate
+        # See #4 on https://github.com/antonbabenko/pre-commit-terraform#terraform_validate
+        exclude: (modules/eks/[^/]+$|modules/infra/submodules/cost-usage-report)
+        args:
+          - "--hook-config=--retry-once-with-cleanup=true"
+      - id: terraform_providers_lock
+        args:
+          - --tf-init-args=-upgrade
+      - id: terraform_docs
+        args:
+          - "--args=--lockfile=false"
+          - "--hook-config=--path-to-file=README.md"
+          - "--hook-config=--add-to-existing-file=true"
+          - "--hook-config=--create-file-if-not-exist=true"
+          - "--hook-config=--recursive.enabled=true"
+          - "--hook-config=--recursive.path=submodules"
+      - id: terraform_fmt
+      - id: terraform_tflint
+        args:
+          - "--args=--config=__GIT_WORKING_DIR__/.tflint.hcl"
+          - "--args=--only=terraform_deprecated_interpolation"
+          - "--args=--only=terraform_deprecated_index"
+          - "--args=--only=terraform_unused_declarations"
+          - "--args=--only=terraform_comment_syntax"
+          - "--args=--only=terraform_documented_outputs"
+          - "--args=--only=terraform_documented_variables"
+          - "--args=--only=terraform_typed_variables"
+          - "--args=--only=terraform_module_pinned_source"
+          - "--args=--only=terraform_naming_convention"
+          - "--args=--only=terraform_required_version"
+          - "--args=--only=terraform_required_providers"
+          - "--args=--only=terraform_standard_module_structure"
+          - "--args=--only=terraform_workspace_remote"
+          - "--args=--enable-rule=aws_iam_policy_document_gov_friendly_arns"
+          - "--args=--enable-rule=aws_iam_policy_gov_friendly_arns"
+          - "--args=--enable-rule=aws_iam_role_policy_gov_friendly_arns"
+      - id: terraform_checkov
+        args:
+          - "--args=--compact"
+          - "--args=--quiet"
+          - "--args=--skip-check CKV2_GHA_1,CKV_CIRCLECIPIPELINES_2,CKV_AWS_111,CKV_AWS_356"
+      - id: terraform_trivy
+        args:
+          - "--args=--severity=HIGH,CRITICAL"
+          - "--args=--ignorefile=__GIT_WORKING_DIR__/.trivyignore"
+          - "--args=--exit-code=1"
+          - "--hook-config=--parallelism-limit=1"
+  - repo: local
+    hooks:
+      - id: check_aws_partition
+        name: Check for hard coded AWS partition
+        entry: ./bin/pre-commit/check-aws-partition.sh
+        language: script
+        exclude: "^(bin|examples)"

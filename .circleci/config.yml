@@ -1,0 +1,70 @@
+version: 2.1
+
+parameters:
+  terraform_version:
+    type: string
+    default: "1.9.8"
+  GHA_Actor:
+    type: string
+    default: ""
+  GHA_Action:
+    type: string
+    default: ""
+  GHA_Event:
+    type: string
+    default: ""
+
+orbs:
+  terraform: circleci/terraform@3.3.0
+  aws-cli: circleci/aws-cli@5.1.1
+
+commands:
+  install_tf:
+    description: "Install Terraform"
+    parameters:
+      terraform_version:
+        type: string
+    steps:
+      - terraform/install:
+          terraform_version: << parameters.terraform_version >>
+
+  set_aws_creds:
+    description: "Sets short-lived creds"
+    steps:
+      - aws-cli/setup:
+          role_arn: "${AWS_IAM_ROLE}"
+          role_session_name: "${CIRCLE_JOB}"
+          session_duration: "900"
+
+  run_tf_test:
+    description: "Sets Terraform variables"
+    steps:
+      - set_aws_creds
+      - run:
+          name: Terraform init
+          command: terraform init
+      - run:
+          name: Terraform test
+          command: terraform test -verbose
+
+jobs:
+  tf-test:
+    docker:
+      - image: cimg/aws:2024.03.1
+    parameters:
+      terraform_version:
+        type: string
+    steps:
+      - checkout
+      - install_tf:
+          terraform_version: << parameters.terraform_version >>
+      - run_tf_test
+
+workflows:
+  test:
+    when:
+      equal: ["test", << pipeline.parameters.GHA_Action >>]
+    jobs:
+      - tf-test:
+          context: aws-oidc
+          terraform_version: << pipeline.parameters.terraform_version >>
