@@ -104,8 +104,8 @@ data "aws_iam_policy_document" "role_permissions_policy" {
       "sagemaker:InvokeEndpoint",
       "sagemaker:InvokeEndpointWithResponseStream",
       "sagemaker:ListEndpointConfigs",
-      "sagemaker:ListModels",
       "sagemaker:ListEndpoints",
+      "sagemaker:ListModels",
       "sagemaker:UpdateEndpoint",
       "sagemaker:UpdateEndpointWeightsAndCapacities"
     ]
