@@ -98,6 +98,7 @@ No modules.
 | [aws_iam_role.domino_sagemaker_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.role_permissions_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_iam_policy_document.read_domino_environments](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.role_permissions_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.role_trust_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
@@ -107,6 +108,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket"></a> [bucket](#input\_bucket) | S3 bucket to use for sagemaker deployment model artifacts (in the target AWS account).  Defaults to the value specified by `resource_identifier` plus the suffix `-{aws_account_id}.` | `string` | `null` | no |
+| <a name="input_domino_environments_repository_arn"></a> [domino\_environments\_repository\_arn](#input\_domino\_environments\_repository\_arn) | ARN for the Domino environments repository.  ONLY needed if deploying in the SAME AWS account as Domino. | `string` | n/a | yes |
 | <a name="input_domino_external_deployments_role_arn"></a> [domino\_external\_deployments\_role\_arn](#input\_domino\_external\_deployments\_role\_arn) | ARN for the Domino external deployments IAM role (in the domino AWS account) | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | AWS region in which to create the sagemaker resources | `string` | n/a | yes |
 | <a name="input_repository"></a> [repository](#input\_repository) | ECR repository name to use for sagemaker deployment images (in the target AWS account).  Defaults to the value specified by `resource_identifier`. | `string` | `null` | no |

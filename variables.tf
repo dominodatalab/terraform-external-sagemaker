@@ -5,12 +5,6 @@ variable "resource_identifier" {
   default     = "domino-sagemaker"
 }
 
-variable "domino_external_deployments_role_arn" {
-  type        = string
-  description = "ARN for the Domino external deployments IAM role (in the domino AWS account)"
-  nullable    = false
-}
-
 variable "region" {
   type        = string
   description = "AWS region in which to create the sagemaker resources"
@@ -40,4 +34,16 @@ variable "role_name" {
   description = "IAM role name to use for creating sagemaker deployment resources (in the target AWS account).  Defaults to the value specified by `resource_identifier`."
   nullable    = true
   default     = null
+}
+
+variable "domino_external_deployments_role_arn" {
+  type        = string
+  description = "ARN for the Domino external deployments IAM role (in the domino AWS account)"
+  nullable    = false
+}
+
+variable "domino_environments_repository_arn" {
+  type        = string
+  description = "ARN for the Domino environments repository.  ONLY needed if deploying in the SAME AWS account as Domino."
+  nullable    = true
 }

@@ -1,4 +1,22 @@
+data "aws_iam_policy_document" "read_domino_environments" {
+  count = var.domino_environments_repository_arn != null ? 1 : 0
+  statement {
+    sid    = "EcrRegistryReadDominoEnvironments"
+    effect = "Allow"
+    actions = [
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:BatchGetImage",
+      "ecr:GetDownloadUrlForLayer",
+    ]
+    resources = [
+      var.domino_environments_repository_arn,
+      "${var.domino_environments_repository_arn}*",
+    ]
+  }
+}
+
 data "aws_iam_policy_document" "role_permissions_policy" {
+  source_policy_documents = var.domino_environments_repository_arn != null ? [data.aws_iam_policy_document.read_domino_environments[0].json] : []
   statement {
     sid     = "StsAllowSelfAssumeRole"
     effect  = "Allow"
