@@ -6,6 +6,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - name: setup
+        run: |
+          apt update
+          apt install -y curl unzip software-properties-common python3 python3-pip python-is-python3
+          apt-get install --reinstall xdg-utils
+          python3 -m pip install --upgrade pip
+          pip3 install --no-cache-dir pre-commit
+          pip3 install --no-cache-dir checkov
+          curl -L "$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/releases/latest | grep -o -E -m 1 "https://.+?-linux-amd64.tar.gz")" > terraform-docs.tgz && tar -xzf terraform-docs.tgz terraform-docs && rm terraform-docs.tgz && chmod +x terraform-docs && mv terraform-docs /usr/bin/
+          curl -L "$(curl -s https://api.github.com/repos/tenable/terrascan/releases/latest | grep -o -E -m 1 "https://.+?_Linux_x86_64.tar.gz")" > terrascan.tar.gz && tar -xzf terrascan.tar.gz terrascan && rm terrascan.tar.gz &&  mv terrascan /usr/bin/ && terrascan init
+          curl -L "$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.zip")" > tflint.zip && unzip tflint.zip && rm tflint.zip &&  mv tflint /usr/bin/
+          curl -L "$(curl -s https://api.github.com/repos/aquasecurity/tfsec/releases/latest | grep -o -E -m 1 "https://.+?tfsec-linux-amd64")" > tfsec && chmod +x tfsec &&  mv tfsec /usr/bin/
+          curl -L "$(curl -s https://api.github.com/repos/aquasecurity/trivy/releases/latest | grep -o -E -i -m 1 "https://.+?/trivy_.+?_Linux-64bit.tar.gz")" > trivy.tar.gz && tar -xzf trivy.tar.gz trivy && rm trivy.tar.gz &&  mv trivy /usr/bin
+          apt install -y jq && \
+          curl -L "$(curl -s https://api.github.com/repos/minamijoyo/tfupdate/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.tar.gz")" > tfupdate.tar.gz && tar -xzf tfupdate.tar.gz tfupdate && rm tfupdate.tar.gz &&  mv tfupdate /usr/bin/
+          curl -L "$(curl -s https://api.github.com/repos/minamijoyo/hcledit/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.tar.gz")" > hcledit.tar.gz && tar -xzf hcledit.tar.gz hcledit && rm hcledit.tar.gz &&  mv hcledit /usr/bin/
       - name: Terraform fmt
         uses: pre-commit/action@v3.0.1
         with:
@@ -53,6 +69,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - name: setup
+        run: |
+          apt update
+          apt install -y curl unzip software-properties-common python3 python3-pip python-is-python3
+          apt-get install --reinstall xdg-utils
+          python3 -m pip install --upgrade pip
+          pip3 install --no-cache-dir pre-commit
+          pip3 install --no-cache-dir checkov
+          curl -L "$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/releases/latest | grep -o -E -m 1 "https://.+?-linux-amd64.tar.gz")" > terraform-docs.tgz && tar -xzf terraform-docs.tgz terraform-docs && rm terraform-docs.tgz && chmod +x terraform-docs &&  mv terraform-docs /usr/bin/
+          curl -L "$(curl -s https://api.github.com/repos/tenable/terrascan/releases/latest | grep -o -E -m 1 "https://.+?_Linux_x86_64.tar.gz")" > terrascan.tar.gz && tar -xzf terrascan.tar.gz terrascan && rm terrascan.tar.gz &&  mv terrascan /usr/bin/ && terrascan init
+          curl -L "$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.zip")" > tflint.zip && unzip tflint.zip && rm tflint.zip &&  mv tflint /usr/bin/
+          curl -L "$(curl -s https://api.github.com/repos/aquasecurity/tfsec/releases/latest | grep -o -E -m 1 "https://.+?tfsec-linux-amd64")" > tfsec && chmod +x tfsec &&  mv tfsec /usr/bin/
+          curl -L "$(curl -s https://api.github.com/repos/aquasecurity/trivy/releases/latest | grep -o -E -i -m 1 "https://.+?/trivy_.+?_Linux-64bit.tar.gz")" > trivy.tar.gz && tar -xzf trivy.tar.gz trivy && rm trivy.tar.gz &&  mv trivy /usr/bin
+          apt install -y jq && \
+          curl -L "$(curl -s https://api.github.com/repos/minamijoyo/tfupdate/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.tar.gz")" > tfupdate.tar.gz && tar -xzf tfupdate.tar.gz tfupdate && rm tfupdate.tar.gz &&  mv tfupdate /usr/bin/
+          curl -L "$(curl -s https://api.github.com/repos/minamijoyo/hcledit/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.tar.gz")" > hcledit.tar.gz && tar -xzf hcledit.tar.gz hcledit && rm hcledit.tar.gz &&  mv hcledit /usr/bin/
       - name: Generate pvt key
         run: >-
           ssh-keygen -q -P '' -t rsa -b 4096 -m PEM -f tests/domino.pem
@@ -84,7 +116,7 @@ jobs:
           retry_wait_seconds: 20
           retry_on: error
           command: >-
-            curl -L https://github.com/terraform-docs/terraform-docs/releases/download/v0.19.0/terraform-docs-v0.19.0-linux-amd64.tar.gz | tar -C /tmp -xzf - && chmod +x /tmp/terraform-docs && sudo mv /tmp/terraform-docs /usr/local/bin
+            curl -L https://github.com/terraform-docs/terraform-docs/releases/download/v0.19.0/terraform-docs-v0.19.0-linux-amd64.tar.gz | tar -C /tmp -xzf - && chmod +x /tmp/terraform-docs &&  mv /tmp/terraform-docs /usr/local/bin
       - name: Terraform docs
         uses: pre-commit/action@v3.0.1
         with:
